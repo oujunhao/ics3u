@@ -11,15 +11,16 @@
 
     <target name="jar">
         <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/EncodeMessage.jar" basedir="build/classes">
+        <jar destfile="build/jar/${ant.project.name}.jar" basedir="build/classes">
             <manifest>
-                <attribute name="Main-Class" value="EncodeMessage"/>
+                <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
         </jar>
     </target>
 
-    <target name="run">
-        <java jar="build/jar/EncodeMessage.jar" fork="true"/>
+    <target name="run" depends="jar">
+        <java jar="build/jar/${ant.project.name}.jar" fork="true"/>
     </target>
-
+    <target name="clean-build" depends="clean,jar"/>
+    <target name="main" depends="clean,run"/>
 </project>
